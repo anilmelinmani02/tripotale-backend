@@ -6,26 +6,14 @@ import * as express from "express";
 import * as allCitiesJson from "./indian-states-cities.json";
 import * as cors from "cors";
 import * as axios from "axios";
+import {CHATGPT_API_KEY, SERVICE_ACCOUNNT} from "./constants.const";
 
-const serviceAccount = {
-  "type": "service_account",
-  "project_id": "tripotale-f1db9",
-  "private_key_id": "197f5fbc4b2dbf1a7621d9bb2b260a0f11bdbd31",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCNfCpauelF4qmH\n4C0H5uI53MSkDOltsgzgRerQ8R2PAEdW7Q9uUECql82kAM7KS6DtKEh+5hHdI8a3\nWZWWiiMhRa372pZnNjtk69yX6Y3nJRs20bEQ3iUaiq4cfVWpHhIZlq5niGjvhmED\nkpSo0td7PzYnlbLcawx4XQz7ENp4VBa/5x0MOg03NkrLxScl3w2LxPRnl44n8BSo\nf4TXczr6An2b7nNTBzKSqg6HV6z/YdwKzE+BElhFpOds2TQoFtQ0bAMTNzcbsT2i\nM2CUrtg0lY1c+ct8h7nA4Py83R/FMhwCmIRuSY8hD85W2yRQztW8tvu5T6cMugwh\nwm3EFONFAgMBAAECggEACy2S5BGZmDug5LsFm8D2QReL0qExhQji4worE+Bk0zI0\nsK2wgSjmfwPYy5sDu3BPscTzu1Deeu/zaHNzsc3OmjeY2BPMO7HJbf8Dcd4SJ7+i\n/4kAGgLPACKSQG53iNG3IN3qgAQDNF9TxVY8l/z2aMaU9vopBCiR9uV1G9XYSNbP\n0MsdG4If6jspjbmTUp9oDLeHwsjDKla2QZLgs/KyXtw43YJZMsHRJgU9bQbX6J+T\nmXBbNMCPaodv23QFHtt4Av1HK0hlFbUCnOK075rHZwtik82UUUqsPN1huEmaIEOG\nqHbIdyYEZ6hpluif/6g8KgHUO/SX+Ys0635L3STxeQKBgQDFT5XM7sWnTOWhwW0W\n7ogXjW1KVoMcC12k7JlmwXd7XwDaLzIJB32drWVzSpD3U65K3RgyDMt3XtEzmGjh\ni/9n6Xab1IA1rLp7Demurtcwu3aW5Ia/xYmlWGypGW9L1owe3HpkKFIduX/kxYY1\nlJgX1y9enx4O4AYLqFufVv35mQKBgQC3kauDVM5mOBWDYh9Zw6IhI2IV3DM9Cuox\nIDkeFQYzviFuVkQpRe/05VkBBqX1EdzEKkgpteX86y9mHKfExAlWo558+/btwBgU\nq8gqM0h+W7NumyZw93pmp0opHBCSUQf2czBWMYw5g4GP1ralxORLDgkkAQYThsQF\n4NYrfev6jQKBgCj46smAd6jTDgg161pMtBP3+U7rghRLw+lgfEZbPF1xD/M+w6we\nUxZwEFYNkObbCKFhIgoaoBGsrdKB/p1/fcztLQUU7n623I57CCCPC/6BnxGcaOLf\nuUKNhxriPjtIVRZ/gCbWPJ8Rix5Nah4sOh0RQTPr5Mj/+iFnl4cSAHFZAoGAT6kP\nXPa4evNropA6OqIDAY5xSjs8oQjTiG4LW1qUTm/74f3dpmuLLiM49JEGA8u0mgwf\nNLqTC6aj8xQMWf8YbliitmpBRftOd+nz+xw2IV96Bk2d6Pf8Tf/a1uwu5M/1PKXQ\nHBd0WqEO4HS03ksLJub4YH9xO5gICOUBC+6hMSECgYAKAtnheAtJwGXpT6n/yx2c\nLBnY9s1c3kSX+8J/3wxBqXjzKvDdn8YX9kuXi8tW/5tujSWDSV6T/OkpMyIub5df\nILfoOx0gbdk9OMxZOPf7qUsoUzWyBUgBiXCNe91s4lRqxkynwUzq6PLgMoYikfUJ\ncyRFfspgEdgoolk9k1KE3g==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-xi0xj@tripotale-f1db9.iam.gserviceaccount.com",
-  "client_id": "108609559075474383208",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xi0xj%40tripotale-f1db9.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com",
-};
-
+const serviceAccount = SERVICE_ACCOUNNT;
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const chatGPTApiKey = "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";
+const chatGPTApiKey = CHATGPT_API_KEY;
 const chatGPTUrl = "https://api.openai.com/v1/chat/completions";
 
 /**
@@ -42,6 +30,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+
 app.post("/getItineraryDetails", async (req, res) => {
   const userInfo = req.body?.userInfo;
   const userReqestedData = req.body?.userReq;
@@ -111,10 +100,11 @@ app.post("/getItineraryDetails", async (req, res) => {
          - 'highRatedRestaurants': Array of 3-4 high-rated restaurant, Each contains two keys 1)name:restaurant name, 2)comment: one line comment on restaurant.
          - 'suggestions': Array of suggestions about city travel and other tourist places.
          - 'trivia': Array with 3-4 trivia questions and answers related to the selected places.
-         - 'shoulderMonths': object  which contains an array named 'cities'. Array 'cities' comprises multiple objects;number of objects must be equal to no of selected cities.Each object contains 3 keys-
+         - 'shoulderMonths': An array which contains multiple objects;number of objects must be equal to no of selected cities.Each object contains 4 keys-
               1)cityName:'one of selected city'
-              1)'months': Specifies the shoulder months range in related city, such as 'June to December. '
-              2)'seasonsInfo': A comment of 100-125 words providing information on the seasons, weather, and atmosphere during the shoulder months in the respective city."
+              2)'shoulderMonths': Specifies the shoulder months range in related city.transitional periods between the peak tourist season and the off-season.
+              3)'peakMonth': range of months when a Specifies city have best weather conditions.Many attractions and activities are fully operational.Best time to visit.
+              4)'monthsToAvoid':range of months when a Specifies city may not be at its best for trip due to weather extremes, closures, or other unfavorable conditions.
 
          Ensure the structure of response should be in well-formatted and completed Json , If there are any issues or the response is incomplete, continue to regenerate until a valid and complete JSON response is received.
          So it can be easily parsed without an issue.If any issues happen. Generate only JSON response.
@@ -153,14 +143,20 @@ app.post("/getItineraryDetails", async (req, res) => {
       console.log("response from gpt", tripPlan);
       // Send the generated trip plan to the user as a response
       // STORE RESULT IN DB IF USER IS LOGGED IN chatGPTResponse + timestamp
-      res.status(200).send(tripPlan).end();
-
-      tripPlan.userTrip.tripPlanGenrationTime = new Date;
       const isUserLogin = req.body?.userInfo?.loginStatus;
       if (isUserLogin == "true") {
-        db.collection("users").doc(userInfo.userId).collection("tripPlans").add(tripPlan);
+        tripPlan.userTrip.tripPlanGenrationTime = new Date;
+        tripPlan.userTrip.isCollectionSavedByUser = false;
+        db.collection("users").doc(userInfo.userId).collection("tripPlans").add(tripPlan)
+          .then((docRef) => {
+            res.status(200).send({tripPlan: tripPlan, additionalDetails: {docId: docRef.id, user: userInfo.userId}}).end();
+          })
+          .catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+      } else {
+        res.status(200).send({tripPlan: tripPlan, additionalDetails: null}).end();
       }
-
       return;
     } catch (jsonParseError) {
       console.error("Error parsing JSON response:", jsonParseError);
@@ -176,6 +172,35 @@ app.post("/getItineraryDetails", async (req, res) => {
       res.status(500).send("An error occurred while processing your request. Please try again later.").end();
       return;
     }
+  }
+});
+
+// save collection
+app.put("/update-save-to-collection", async (req, res) => {
+  try {
+    const {docId, userId, isSavedToCollection} = req.body;
+
+    if (!docId || !userId || isSavedToCollection === undefined) {
+      return res.status(400).json({error: "Bad Request: Missing required parameters"}).end();
+    }
+
+    // Fetching the document from Firestore
+    const docRef = db.collection("users").doc(userId).collection("tripPlans").doc(docId);
+    const docSnapshot = await docRef.get();
+
+    if (!docSnapshot.exists) {
+      return res.status(404).json({error: "Not Found: Document not found"}).end();
+    }
+
+    // Update the collection save status
+    await docRef.update({
+      "userTrip.isCollectionSavedByUser": isSavedToCollection,
+    });
+
+    return res.status(200).json({message: "Collection save status updated successfully"}).end();
+  } catch (error) {
+    console.error("Error updating collection save status:", error);
+    return res.status(500).json({error: "Internal Server Error"}).end();
   }
 });
 
