@@ -1,4 +1,3 @@
-
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as express from "express";
@@ -6,7 +5,7 @@ import * as express from "express";
 import * as allCitiesJson from "./indian-states-cities.json";
 import * as cors from "cors";
 import * as axios from "axios";
-import {CHATGPT_API_KEY, SERVICE_ACCOUNNT} from "./constants.const";
+import {CHATGPT_API_KEY, SERVICE_ACCOUNNT} from "./constants";
 
 const serviceAccount = SERVICE_ACCOUNNT;
 const app = express();
@@ -201,6 +200,56 @@ app.put("/update-save-to-collection", async (req, res) => {
   } catch (error) {
     console.error("Error updating collection save status:", error);
     return res.status(500).json({error: "Internal Server Error"}).end();
+  }
+});
+
+// get refCode from userId
+app.get("/getRefCode/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const refDocSnapshot: any = await admin.firestore().collection("referralCodes").doc("refDoc").get();
+
+    if (!refDocSnapshot.exists) {
+      return res.status(404).json({error: "Referral document not found"});
+    }
+
+    const refDocData = refDocSnapshot.data();
+    const refCode = refDocData[userId];
+    if (!refCode) {
+      return res.status(404).json({error: "RefCode not found for the provided userId"});
+    }
+
+    return res.json({refCode});
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({error: "Internal server error"});
+  }
+});
+
+// get refCode from userId
+app.get("/getUserId/:refCode", async (req, res) => {
+  try {
+    const refCode = req.params.refCode;
+
+    const refDocSnapshot = await admin.firestore().collection("referralCodes").doc("refDoc").get();
+
+    if (!refDocSnapshot.exists) {
+      return res.status(404).json({error: "Referral document not found"});
+    }
+
+    const userData:any = refDocSnapshot.data();
+
+    const userId = Object.keys(userData).find((key) => userData[key] === refCode);
+
+    if (!userId) {
+      return res.status(404).json({error: "UserId not found for the provided refCode"});
+    }
+
+    return res.json({userId});
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({error: "Internal server error"});
   }
 });
 
