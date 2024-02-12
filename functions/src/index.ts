@@ -1,7 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as express from "express";
-// import * as pune from "./puneCityData.json";
 import * as allCitiesJson from "./indian-states-cities.json";
 import * as cors from "cors";
 import * as axios from "axios";
@@ -18,7 +17,7 @@ const chatGPTUrl = "https://api.openai.com/v1/chat/completions";
 /**
  * Get ChatGPT response based on the provided data.
  * @param {Object} userReqestedData - The data received for generating the response.
- * @return {Promise<string>} The generated response from ChatGPT.
+ * @return {Promise<string>}
  */
 
 const serviceAccountCasted = serviceAccount as admin.ServiceAccount;
@@ -33,7 +32,6 @@ const db = admin.firestore();
 app.post("/getItineraryDetails", async (req, res) => {
   const userInfo = req.body?.userInfo;
   const userReqestedData = req.body?.userReq;
-  console.log("Inside getItineraryDetails with request body => ", req.body);
 
   try {
     const prompt = `
@@ -227,7 +225,7 @@ app.get("/getRefCode/:userId", async (req, res) => {
   }
 });
 
-// get refCode from userId
+// get userId from refCode
 app.get("/getUserId/:refCode", async (req, res) => {
   try {
     const refCode = req.params.refCode;

@@ -76,7 +76,20 @@
                     "name": "South Andaman",
                     "latitude": "10.75776000",
                     "longitude": "92.52136000"
+                },
+                {
+                    "name":"Havelock Islands"
+                },
+                {
+                    "name":"Baratang Island"
+                },
+                {
+                    "name":"Neil Island"
+                },
+                {
+                    "name":"Ross Island"
                 }
+                
             ]
         },
         {
@@ -1094,6 +1107,18 @@
                     "name": "Yarada",
                     "latitude": "17.65872000",
                     "longitude": "83.27419000"
+                },
+                {
+                    "name": "Visakhapatnam"
+                },
+                {
+                    "name": "Gandikota"
+                },
+                {
+                    "name": "Kadapa"
+                },
+                {
+                    "name": "Srisailam"
                 }
             ]
         },
@@ -8650,6 +8675,12 @@
                     "longitude": "76.26022000"
                 },
                 {
+                    "id": 131617,
+                    "name": "Kochi",
+                    "latitude": "9.93988000",
+                    "longitude": "76.26022000"
+                },
+                {
                     "id": 131724,
                     "name": "Dharmadam",
                     "latitude": "11.77538000",
@@ -10922,6 +10953,11 @@
                     "longitude": "74.21097000"
                 },
                 {
+                    "name": "Ajanta and Ellora Caves",
+                    "latitude": "20.534033",
+                    "longitude": "75.748283"
+                },
+                {
                     "id": 57618,
                     "name": "Akalkot",
                     "latitude": "17.52532000",
@@ -11514,6 +11550,11 @@
                     "name": "Chikhli (Jalna)",
                     "latitude": "20.02193000",
                     "longitude": "75.78544000"
+                },
+                {
+                    "name": "Chikhaldara",
+                    "latitude": "21.4008483",
+                    "longitude": "77.328124"
                 },
                 {
                     "id": 147726,
